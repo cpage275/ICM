@@ -1,0 +1,55 @@
+let colors = [
+  "#B3B3B3",
+  "#FFFFFF",
+  "#B3B3B3",
+  "#FFFFFF",
+  "#B3B3B3",
+  "#FFFFFF", //there's more gray and white in this array so that they are chosen more often by the random color picker 'hex' 
+  "#75FBFD",
+  "#F5DC22",
+  "#FFA9D9",
+];
+
+let hex;
+let blockX = 20;
+let blockY = 20;
+let blockLength = 100;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  noStroke();
+  background(0);
+
+  for (let y = 0; y < height; y += 20) {
+    blockX = 20;
+    for (let i = random(2, 10); i < 10; i++) {
+      hex = colors[int(random(0, 9))];
+      fill(hex);
+      blockLength = random(20, 120);
+
+      if (blockLength + blockX > width - 20) {
+        //check if the block is going to go off the screen, and if so make it invisible
+        noFill();
+      }
+      if (blockY > width - 20) {
+        noFill();
+      }
+      rect(blockX, blockY, blockLength, 12);
+      blockX = blockX + blockLength + 8; //draw the next block with an 8px gap
+    }
+    
+     //I'm sure there's a better way to do this, but this section somewhat randomly adds a 'line break' effect to make it look more realistic 
+    
+    let lineBreakTrigger = int(random(0, 5));
+    if (lineBreakTrigger == 2) {
+      blockY += 36;
+    } else blockY += 20;
+
+    // print(y)
+  }
+
+  noLoop();
+}
